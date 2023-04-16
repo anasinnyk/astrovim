@@ -1,0 +1,1253 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "compute.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ComputeInstance"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "advancedMachineFeatures": {
+          "description": "Controls for advanced machine-related behavior features.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enableNestedVirtualization": {
+              "description": "Whether to enable nested virtualization or not.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "threadsPerCore": {
+              "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "attachedDisk": {
+          "description": "List of disks attached to the instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "sourceDiskRef"
+            ],
+            "properties": {
+              "deviceName": {
+                "description": "Name with which the attached disk is accessible under /dev/disk/by-id/.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "diskEncryptionKeyRaw": {
+                "description": "A 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "value": {
+                    "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "valueFrom": {
+                    "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "secretKeyRef": {
+                        "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "required": [
+                          "name",
+                          "key"
+                        ],
+                        "properties": {
+                          "key": {
+                            "description": "Key that identifies the value to be extracted.",
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "Name of the Secret to extract a value from.",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "diskEncryptionKeySha256": {
+                "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied encryption key that protects this resource.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "kmsKeyRef": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "mode": {
+                "description": "Read/write mode for the disk. One of \"READ_ONLY\" or \"READ_WRITE\".",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sourceDiskRef": {
+                "type": "object",
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `ComputeDisk` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "bootDisk": {
+          "description": "Immutable. The boot disk for the instance.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "autoDelete": {
+              "description": "Immutable. Whether the disk will be auto-deleted when the instance is deleted.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "deviceName": {
+              "description": "Immutable. Name with which attached disk will be accessible under /dev/disk/by-id/.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "diskEncryptionKeyRaw": {
+              "description": "Immutable. A 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to encrypt this disk. Only one of kms_key_self_link and disk_encryption_key_raw may be set.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "value": {
+                  "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "valueFrom": {
+                  "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "secretKeyRef": {
+                      "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "required": [
+                        "name",
+                        "key"
+                      ],
+                      "properties": {
+                        "key": {
+                          "description": "Key that identifies the value to be extracted.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Name of the Secret to extract a value from.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "diskEncryptionKeySha256": {
+              "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied encryption key that protects this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "initializeParams": {
+              "description": "Immutable. Parameters with which a disk was created alongside the instance.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "labels": {
+                  "description": "Immutable. A set of key/value label pairs assigned to the disk.",
+                  "x-kubernetes-preserve-unknown-fields": true
+                },
+                "size": {
+                  "description": "Immutable. The size of the image in gigabytes.",
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "sourceImageRef": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "external": {
+                      "description": "Allowed value: The `selfLink` field of a `ComputeImage` resource.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "name": {
+                      "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "namespace": {
+                      "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "type": {
+                  "description": "Immutable. The Google Compute Engine disk type. Such as pd-standard, pd-ssd or pd-balanced.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "kmsKeyRef": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "mode": {
+              "description": "Immutable. Read/write mode for the disk. One of \"READ_ONLY\" or \"READ_WRITE\".",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sourceDiskRef": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `ComputeDisk` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "canIpForward": {
+          "description": "Whether sending and receiving of packets with non-matching source or destination IPs is allowed.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "confidentialInstanceConfig": {
+          "description": "Immutable. The Confidential VM config being used by the instance.  on_host_maintenance has to be set to TERMINATE or this will fail to create.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "enableConfidentialCompute"
+          ],
+          "properties": {
+            "enableConfidentialCompute": {
+              "description": "Defines whether the instance should have confidential compute enabled.",
+              "type": "boolean"
+            }
+          }
+        },
+        "deletionProtection": {
+          "description": "Whether deletion protection is enabled on this instance.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "Immutable. A brief description of the resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "desiredStatus": {
+          "description": "Desired status of the instance. Either \"RUNNING\" or \"TERMINATED\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enableDisplay": {
+          "description": "Whether the instance has virtual displays enabled.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "guestAccelerator": {
+          "description": "Immutable. List of the type and count of accelerator cards attached to the instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "count",
+              "type"
+            ],
+            "properties": {
+              "count": {
+                "description": "Immutable. The number of the guest accelerator cards exposed to this instance.",
+                "type": "integer"
+              },
+              "type": {
+                "description": "Immutable. The accelerator type resource exposed to this instance. E.g. nvidia-tesla-k80.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "hostname": {
+          "description": "Immutable. A custom hostname for the instance. Must be a fully qualified DNS name and RFC-1035-valid. Valid format is a series of labels 1-63 characters long matching the regular expression [a-z]([-a-z0-9]*[a-z0-9]), concatenated with periods. The entire hostname must not exceed 253 characters. Changing this forces a new resource to be created.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instanceTemplateRef": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeInstanceTemplate` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "machineType": {
+          "description": "The machine type to create.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "metadataStartupScript": {
+          "description": "Immutable. Metadata startup scripts made available within the instance.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "minCpuPlatform": {
+          "description": "The minimum CPU platform specified for the VM instance.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "networkInterface": {
+          "description": "Immutable. The networks attached to the instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "accessConfig": {
+                "description": "Access configurations, i.e. IPs via which this instance can be accessed via the Internet.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "natIpRef": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "external": {
+                          "description": "Allowed value: The `address` field of a `ComputeAddress` resource.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "name": {
+                          "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "namespace": {
+                          "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    },
+                    "networkTier": {
+                      "description": "The networking tier used for configuring this instance. One of PREMIUM or STANDARD.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "publicPtrDomainName": {
+                      "description": "The DNS domain name for the public PTR record.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "aliasIpRange": {
+                "description": "An array of alias IP ranges for this network interface.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "ipCidrRange"
+                  ],
+                  "properties": {
+                    "ipCidrRange": {
+                      "description": "The IP CIDR range represented by this alias IP range.",
+                      "type": "string"
+                    },
+                    "subnetworkRangeName": {
+                      "description": "The subnetwork secondary range name specifying the secondary range from which to allocate the IP CIDR range for this alias IP range.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "ipv6AccessConfig": {
+                "description": "An array of IPv6 access configurations for this interface. Currently, only one IPv6 access config, DIRECT_IPV6, is supported. If there is no ipv6AccessConfig specified, then this instance will have no external IPv6 Internet access.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "networkTier"
+                  ],
+                  "properties": {
+                    "externalIpv6": {
+                      "description": "The first IPv6 address of the external IPv6 range associated with this instance, prefix length is stored in externalIpv6PrefixLength in ipv6AccessConfig. The field is output only, an IPv6 address from a subnetwork associated with the instance will be allocated dynamically.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "externalIpv6PrefixLength": {
+                      "description": "The prefix length of the external IPv6 range.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "networkTier": {
+                      "description": "The service-level to be provided for IPv6 traffic when the subnet has an external subnet. Only PREMIUM tier is valid for IPv6.",
+                      "type": "string"
+                    },
+                    "publicPtrDomainName": {
+                      "description": "The domain name to be used when creating DNSv6 records for the external IPv6 ranges.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "ipv6AccessType": {
+                "description": "One of EXTERNAL, INTERNAL to indicate whether the IP can be accessed from the Internet. This field is always inherited from its subnetwork.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "description": "The name of the interface.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "networkIp": {
+                "description": "DEPRECATED. Although this field is still available, there is limited support. We recommend that you use `spec.networkInterface.networkIpRef` instead.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "networkIpRef": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `address` field of a `ComputeAddress` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "kind": {
+                    "description": "Kind of the referent. Allowed values: ComputeAddress",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "networkRef": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `ComputeNetwork` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "nicType": {
+                "description": "Immutable. The type of vNIC to be used on this interface. Possible values:GVNIC, VIRTIO_NET.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "queueCount": {
+                "description": "Immutable. The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It will be empty if not specified.",
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "stackType": {
+                "description": "The stack type for this network interface to identify whether the IPv6 feature is enabled or not. If not specified, IPV4_ONLY will be used.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "subnetworkProject": {
+                "description": "The project in which the subnetwork belongs.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "subnetworkRef": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `ComputeSubnetwork` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "networkPerformanceConfig": {
+          "description": "Immutable. Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "totalEgressBandwidthTier"
+          ],
+          "properties": {
+            "totalEgressBandwidthTier": {
+              "description": "Immutable. The egress bandwidth tier to enable. Possible values:TIER_1, DEFAULT.",
+              "type": "string"
+            }
+          }
+        },
+        "reservationAffinity": {
+          "description": "Immutable. Specifies the reservations that this instance can consume from.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "specificReservation": {
+              "description": "Immutable. Specifies the label selector for the reservation to use.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "description": "Immutable. Corresponds to the label key of a reservation resource. To target a SPECIFIC_RESERVATION by name, specify compute.googleapis.com/reservation-name as the key and specify the name of your reservation as the only value.",
+                  "type": "string"
+                },
+                "values": {
+                  "description": "Immutable. Corresponds to the label values of a reservation resource.",
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "type": {
+              "description": "Immutable. The type of reservation from which this instance can consume resources.",
+              "type": "string"
+            }
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resourcePolicies": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "external": {
+                "description": "Allowed value: The `selfLink` field of a `ComputeResourcePolicy` resource.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "namespace": {
+                "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "scheduling": {
+          "description": "The scheduling strategy being used by the instance.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "automaticRestart": {
+              "description": "Specifies if the instance should be restarted if it was terminated by Compute Engine (not a user).",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "minNodeCpus": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "nodeAffinities": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "value": {
+                    "x-kubernetes-preserve-unknown-fields": true
+                  }
+                }
+              }
+            },
+            "onHostMaintenance": {
+              "description": "Describes maintenance behavior for the instance. One of MIGRATE or TERMINATE,.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "preemptible": {
+              "description": "Immutable. Whether the instance is preemptible.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "provisioningModel": {
+              "description": "Immutable. Whether the instance is spot. If this is set as SPOT.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "scratchDisk": {
+          "description": "Immutable. The scratch disks attached to the instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "interface"
+            ],
+            "properties": {
+              "interface": {
+                "description": "The disk interface used for attaching this disk. One of SCSI or NVME.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serviceAccount": {
+          "description": "The service account to attach to the instance.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "scopes"
+          ],
+          "properties": {
+            "scopes": {
+              "description": "A list of service scopes.",
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "serviceAccountRef": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "shieldedInstanceConfig": {
+          "description": "The shielded vm config being used by the instance.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enableIntegrityMonitoring": {
+              "description": "Whether integrity monitoring is enabled for the instance.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "enableSecureBoot": {
+              "description": "Whether secure boot is enabled for the instance.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "enableVtpm": {
+              "description": "Whether the instance uses vTPM.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        },
+        "tags": {
+          "description": "The list of tags attached to the instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "zone": {
+          "description": "Immutable. The zone of the instance. If self_link is provided, this value is ignored. If neither self_link nor zone are provided, the provider zone is used.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "cpuPlatform": {
+          "description": "The CPU platform used by this instance.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currentStatus": {
+          "description": "Current status of the instance.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instanceId": {
+          "description": "The server-assigned unique identifier of this instance.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labelFingerprint": {
+          "description": "The unique fingerprint of the labels.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metadataFingerprint": {
+          "description": "The unique fingerprint of the metadata.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "selfLink": {
+          "description": "The URI of the created resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tagsFingerprint": {
+          "description": "The unique fingerprint of the tags.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "compute.cnrm.cloud.google.com",
+      "kind": "ComputeInstance",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,386 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "networkconnectivity.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NetworkConnectivitySpoke"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "hubRef",
+        "location",
+        "projectRef"
+      ],
+      "properties": {
+        "description": {
+          "description": "An optional description of the spoke.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hubRef": {
+          "description": "Immutable.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "Immutable. The URI of the hub that this spoke is attached to.\n\nAllowed value: The Google Cloud resource name of a `NetworkConnectivityHub` resource (format: `projects/{{project}}/locations/global/hubs/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "linkedInterconnectAttachments": {
+          "description": "Immutable. A collection of VLAN attachment resources. These resources should be redundant attachments that all advertise the same prefixes to Google Cloud. Alternatively, in active/passive configurations, all attachments should be capable of advertising the same prefixes.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "siteToSiteDataTransfer",
+            "uris"
+          ],
+          "properties": {
+            "siteToSiteDataTransfer": {
+              "description": "Immutable. A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations.",
+              "type": "boolean"
+            },
+            "uris": {
+              "description": "Immutable.",
+              "type": "array",
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `ComputeInterconnectAttachment` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "linkedRouterApplianceInstances": {
+          "description": "Immutable. The URIs of linked Router appliance resources",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "instances",
+            "siteToSiteDataTransfer"
+          ],
+          "properties": {
+            "instances": {
+              "description": "Immutable. The list of router appliance instances",
+              "type": "array",
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ipAddress": {
+                    "description": "Immutable. The IP address on the VM to use for peering.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "virtualMachineRef": {
+                    "description": "Immutable.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "external": {
+                        "description": "The URI of the virtual machine resource\n\nAllowed value: The `selfLink` field of a `ComputeInstance` resource.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "name": {
+                        "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "namespace": {
+                        "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "siteToSiteDataTransfer": {
+              "description": "Immutable. A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations.",
+              "type": "boolean"
+            }
+          }
+        },
+        "linkedVpnTunnels": {
+          "description": "Immutable. The URIs of linked VPN tunnel resources",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "siteToSiteDataTransfer",
+            "uris"
+          ],
+          "properties": {
+            "siteToSiteDataTransfer": {
+              "description": "Immutable. A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations.",
+              "type": "boolean"
+            },
+            "uris": {
+              "description": "Immutable.",
+              "type": "array",
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `ComputeVPNTunnel` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "location": {
+          "description": "Immutable. The location for the resource",
+          "type": "string"
+        },
+        "projectRef": {
+          "description": "Immutable. The Project that this resource belongs to.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The project for the resource\n\nAllowed value: The Google Cloud resource name of a `Project` resource (format: `projects/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "createTime": {
+          "description": "Output only. The time the spoke was created.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "state": {
+          "description": "Output only. The current lifecycle state of this spoke. Possible values: STATE_UNSPECIFIED, CREATING, ACTIVE, DELETING",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uniqueId": {
+          "description": "Output only. The Google-generated UUID for the spoke. This value is unique across all spoke resources. If a spoke is deleted and another with the same name is created, the new spoke is assigned a different unique_id.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updateTime": {
+          "description": "Output only. The time the spoke was last updated.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networkconnectivity.cnrm.cloud.google.com",
+      "kind": "NetworkConnectivitySpoke",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

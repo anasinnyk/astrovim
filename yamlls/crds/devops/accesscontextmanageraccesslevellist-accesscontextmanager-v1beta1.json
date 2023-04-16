@@ -1,0 +1,51 @@
+{
+  "description": "AccessContextManagerAccessLevelList is a list of AccessContextManagerAccessLevel",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "accesscontextmanager.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "items": {
+      "description": "List of accesscontextmanageraccesslevels. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "_definitions.json#/definitions/com.google.cloud.cnrm.accesscontextmanager.v1beta1.AccessContextManagerAccessLevel"
+      }
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "AccessContextManagerAccessLevelList"
+      ]
+    },
+    "metadata": {
+      "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "accesscontextmanager.cnrm.cloud.google.com",
+      "kind": "AccessContextManagerAccessLevelList",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object"
+}

@@ -1,0 +1,438 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "compute.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ComputeSnapshot"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "sourceDiskRef"
+      ],
+      "properties": {
+        "description": {
+          "description": "Immutable. An optional description of this resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snapshotEncryptionKey": {
+          "description": "Immutable. The customer-supplied encryption key of the snapshot. Required if the\nsource snapshot is protected by a customer-supplied encryption key.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kmsKeyRef": {
+              "description": "The encryption key that is stored in Google Cloud KMS.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "kmsKeyServiceAccountRef": {
+              "description": "The service account used for the encryption request for the given KMS key.\nIf absent, the Compute Engine Service Agent service account is used.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "rawKey": {
+              "description": "Immutable. Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "value": {
+                  "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "valueFrom": {
+                  "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "secretKeyRef": {
+                      "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "required": [
+                        "name",
+                        "key"
+                      ],
+                      "properties": {
+                        "key": {
+                          "description": "Key that identifies the value to be extracted.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Name of the Secret to extract a value from.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "sha256": {
+              "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied\nencryption key that protects this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "sourceDiskEncryptionKey": {
+          "description": "Immutable. The customer-supplied encryption key of the source snapshot. Required\nif the source snapshot is protected by a customer-supplied encryption\nkey.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kmsKeyServiceAccountRef": {
+              "description": "The service account used for the encryption request for the given KMS key.\nIf absent, the Compute Engine Service Agent service account is used.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "rawKey": {
+              "description": "Immutable. Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "value": {
+                  "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "valueFrom": {
+                  "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "secretKeyRef": {
+                      "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "required": [
+                        "name",
+                        "key"
+                      ],
+                      "properties": {
+                        "key": {
+                          "description": "Key that identifies the value to be extracted.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Name of the Secret to extract a value from.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sourceDiskRef": {
+          "description": "A reference to the disk used to create this snapshot.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `name` field of a `ComputeDisk` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "storageLocations": {
+          "description": "Immutable. Cloud Storage bucket storage location of the snapshot (regional or multi-regional).",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "zone": {
+          "description": "Immutable. A reference to the zone where the disk is hosted.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "creationTimestamp": {
+          "description": "Creation timestamp in RFC3339 text format.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diskSizeGb": {
+          "description": "Size of the snapshot, specified in GB.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "labelFingerprint": {
+          "description": "The fingerprint used for optimistic locking of this resource. Used\ninternally during updates.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "licenses": {
+          "description": "A list of public visible licenses that apply to this snapshot. This\ncan be because the original image had licenses attached (such as a\nWindows image).  snapshotEncryptionKey nested object Encrypts the\nsnapshot using a customer-supplied encryption key.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "selfLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snapshotId": {
+          "description": "The unique identifier for the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "storageBytes": {
+          "description": "A size of the storage used by the snapshot. As snapshots share\nstorage, this number is expected to change with snapshot\ncreation/deletion.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "compute.cnrm.cloud.google.com",
+      "kind": "ComputeSnapshot",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

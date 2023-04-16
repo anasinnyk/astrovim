@@ -1,0 +1,430 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "gkehub.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "GKEHubFeatureMembership"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "configmanagement",
+        "featureRef",
+        "location",
+        "membershipRef",
+        "projectRef"
+      ],
+      "properties": {
+        "configmanagement": {
+          "description": "Config Management-specific spec.",
+          "type": "object",
+          "properties": {
+            "binauthz": {
+              "description": "Binauthz configuration for the cluster.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "enabled": {
+                  "description": "Whether binauthz is enabled in this cluster.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "configSync": {
+              "description": "Config Sync configuration for the cluster.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "git": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "gcpServiceAccountRef": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "external": {
+                          "description": "The GCP Service Account Email used for auth when secretType is gcpServiceAccount.\n\nAllowed value: The `email` field of an `IAMServiceAccount` resource.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "name": {
+                          "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "namespace": {
+                          "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    },
+                    "httpsProxy": {
+                      "description": "URL for the HTTPS proxy to be used when communicating with the Git repo.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "policyDir": {
+                      "description": "The path within the Git repository that represents the top level of the repo to sync. Default: the root directory of the repository.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "secretType": {
+                      "description": "Type of secret configured for access to the Git repo. Must be one of ssh, cookiefile, gcenode, token, gcpserviceaccount or none. The validation of this is case-sensitive.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "syncBranch": {
+                      "description": "The branch of the repository to sync from. Default: master.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "syncRepo": {
+                      "description": "The URL of the Git repository to use as the source of truth.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "syncRev": {
+                      "description": "Git revision (tag or hash) to check out. Default HEAD.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "syncWaitSecs": {
+                      "description": "Period in seconds between consecutive syncs. Default: 15.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "preventDrift": {
+                  "description": "Set to true to enable the Config Sync admission webhook to prevent drifts. If set to `false`, disables the Config Sync admission webhook and does not prevent drifts.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "sourceFormat": {
+                  "description": "Specifies whether the Config Sync Repo is in \"hierarchical\" or \"unstructured\" mode.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "hierarchyController": {
+              "description": "Hierarchy Controller configuration for the cluster.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "enableHierarchicalResourceQuota": {
+                  "description": "Whether hierarchical resource quota is enabled in this cluster.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "enablePodTreeLabels": {
+                  "description": "Whether pod tree labels are enabled in this cluster.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "enabled": {
+                  "description": "Whether Hierarchy Controller is enabled in this cluster.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "policyController": {
+              "description": "Policy Controller configuration for the cluster.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "auditIntervalSeconds": {
+                  "description": "Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "enabled": {
+                  "description": "Enables the installation of Policy Controller. If false, the rest of PolicyController fields take no effect.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "exemptableNamespaces": {
+                  "description": "The set of namespaces that are excluded from Policy Controller checks. Namespaces do not need to currently exist on the cluster.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "logDeniesEnabled": {
+                  "description": "Logs all denies and dry run failures.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "referentialRulesEnabled": {
+                  "description": "Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "templateLibraryInstalled": {
+                  "description": "Installs the default template library along with Policy Controller.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "version": {
+              "description": "Optional. Version of ACM to install. Defaults to the latest version.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "featureRef": {
+          "description": "Immutable.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The name of the feature\n\nAllowed value: The Google Cloud resource name of a `GKEHubFeature` resource (format: `projects/{{project}}/locations/{{location}}/features/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "location": {
+          "description": "Immutable. The location of the feature",
+          "type": "string"
+        },
+        "membershipRef": {
+          "description": "Immutable.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The name of the membership\n\nAllowed value: The Google Cloud resource name of a `GKEHubMembership` resource (format: `projects/{{project}}/locations/{{location}}/memberships/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "projectRef": {
+          "description": "Immutable. The Project that this resource belongs to.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The project of the feature\n\nAllowed value: The Google Cloud resource name of a `Project` resource (format: `projects/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "gkehub.cnrm.cloud.google.com",
+      "kind": "GKEHubFeatureMembership",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

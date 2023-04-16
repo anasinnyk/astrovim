@@ -1,0 +1,397 @@
+{
+  "description": "IAMPartialPolicy is the Schema for the iampartialpolicy API",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "iam.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "IAMPartialPolicy"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "description": "IAMPartialPolicySpec defines the desired state of IAMPartialPolicy",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "resourceRef"
+      ],
+      "properties": {
+        "bindings": {
+          "description": "Optional. The list of IAM bindings managed by Config Connector.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Specifies the members to bind to an IAM role.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "role"
+            ],
+            "properties": {
+              "condition": {
+                "description": "Optional. The condition under which the binding applies.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "expression",
+                  "title"
+                ],
+                "properties": {
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "expression": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "members": {
+                "description": "Optional. The list of IAM users to be bound to the role.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "member": {
+                      "description": "The IAM identity to be bound to the role. Exactly one of 'member' or 'memberFrom' must be used.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "memberFrom": {
+                      "description": "The IAM identity to be bound to the role. Exactly one of 'member' or 'memberFrom' must be used, and only one subfield within 'memberFrom' can be used.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "logSinkRef": {
+                          "description": "The LoggingLogSink whose writer identity (i.e. its 'status.writerIdentity') is to be bound to the role.",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "required": [
+                            "name"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        },
+                        "serviceAccountRef": {
+                          "description": "The IAMServiceAccount to be bound to the role.",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "required": [
+                            "name"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "role": {
+                "description": "Required. The role to bind the users to.",
+                "type": "string",
+                "pattern": "^((projects|organizations)/[^/]+/)?roles/[\\w_\\.]+$"
+              }
+            }
+          }
+        },
+        "resourceRef": {
+          "description": "Immutable. Required. The GCP resource to set the IAM policy on.",
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "apiVersion": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "external": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "kind": {
+              "type": "string"
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "description": "IAMPartialPolicyStatus defines the observed state of IAMPartialPolicy",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "allBindings": {
+          "description": "AllBindings surfaces all IAM bindings for the referenced resource.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Specifies the members to bind to an IAM role.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "role"
+            ],
+            "properties": {
+              "condition": {
+                "description": "Optional. The condition under which the binding applies.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "expression",
+                  "title"
+                ],
+                "properties": {
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "expression": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "members": {
+                "description": "Optional. The list of IAM users to be bound to the role.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "role": {
+                "description": "Required. The role to bind the users to.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "conditions": {
+          "description": "Conditions represent the latest available observations of the IAM policy's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "lastAppliedBindings": {
+          "description": "LastAppliedBindings is the list of IAM bindings that were most recently applied by Config Connector.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Specifies the members to bind to an IAM role.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "role"
+            ],
+            "properties": {
+              "condition": {
+                "description": "Optional. The condition under which the binding applies.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "expression",
+                  "title"
+                ],
+                "properties": {
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "expression": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "members": {
+                "description": "Optional. The list of IAM users to be bound to the role.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "role": {
+                "description": "Required. The role to bind the users to.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "iam.cnrm.cloud.google.com",
+      "kind": "IAMPartialPolicy",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

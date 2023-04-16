@@ -1,0 +1,311 @@
+{
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "BackendConfig"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "description": "BackendConfigSpec is the spec for a BackendConfig resource",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "cdn": {
+          "description": "CDNConfig contains configuration for CDN-enabled backends.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "enabled"
+          ],
+          "properties": {
+            "cachePolicy": {
+              "description": "CacheKeyPolicy contains configuration for how requests to a CDN-enabled backend are cached.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "includeHost": {
+                  "description": "If true, requests to different hosts will be cached separately.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "includeProtocol": {
+                  "description": "If true, http and https requests will be cached separately.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "includeQueryString": {
+                  "description": "If true, query string parameters are included in the cache key according to QueryStringBlacklist and QueryStringWhitelist. If neither is set, the entire query string is included and if false the entire query string is excluded.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "queryStringBlacklist": {
+                  "description": "Names of query strint parameters to exclude from cache keys. All other parameters are included. Either specify QueryStringBlacklist or QueryStringWhitelist, but not both.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "queryStringWhitelist": {
+                  "description": "Names of query string parameters to include in cache keys. All other parameters are excluded. Either specify QueryStringBlacklist or QueryStringWhitelist, but not both.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "connectionDraining": {
+          "description": "ConnectionDrainingConfig contains configuration for connection draining. For now the draining timeout. May manage more settings in the future.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "drainingTimeoutSec": {
+              "description": "Draining timeout in seconds.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            }
+          }
+        },
+        "customRequestHeaders": {
+          "description": "CustomRequestHeadersConfig contains configuration for custom request headers",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "headers": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "healthCheck": {
+          "description": "HealthCheckConfig contains configuration for the health check.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "checkIntervalSec": {
+              "description": "CheckIntervalSec is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "healthyThreshold": {
+              "description": "HealthyThreshold is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "port": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "requestPath": {
+              "description": "RequestPath is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "timeoutSec": {
+              "description": "TimeoutSec is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "type": {
+              "description": "Type is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "unhealthyThreshold": {
+              "description": "UnhealthyThreshold is a health check parameter. See https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            }
+          }
+        },
+        "iap": {
+          "description": "IAPConfig contains configuration for IAP-enabled backends.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "enabled",
+            "oauthclientCredentials"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "oauthclientCredentials": {
+              "description": "OAuthClientCredentials contains credentials for a single IAP-enabled backend.",
+              "type": "object",
+              "required": [
+                "secretName"
+              ],
+              "properties": {
+                "clientID": {
+                  "description": "Direct reference to OAuth client id.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "clientSecret": {
+                  "description": "Direct reference to OAuth client secret.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "secretName": {
+                  "description": "The name of a k8s secret which stores the OAuth client id & secret.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "securityPolicy": {
+          "description": "SecurityPolicyConfig contains configuration for CloudArmor-enabled backends. If not specified, the controller will not reconcile the security policy configuration. In other words, users can make changes in GCE without the controller overwriting them.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "description": "Name of the security policy that should be associated. If set to empty, the existing security policy on the backend will be removed.",
+              "type": "string"
+            }
+          }
+        },
+        "sessionAffinity": {
+          "description": "SessionAffinityConfig contains configuration for stickyness parameters.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "affinityCookieTtlSec": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "affinityType": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "timeoutSec": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "cloud.google.com",
+      "kind": "BackendConfig",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,51 @@
+{
+  "description": "RunServiceList is a list of RunService",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "run.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "items": {
+      "description": "List of runservices. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "_definitions.json#/definitions/com.google.cloud.cnrm.run.v1beta1.RunService"
+      }
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "RunServiceList"
+      ]
+    },
+    "metadata": {
+      "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "run.cnrm.cloud.google.com",
+      "kind": "RunServiceList",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object"
+}

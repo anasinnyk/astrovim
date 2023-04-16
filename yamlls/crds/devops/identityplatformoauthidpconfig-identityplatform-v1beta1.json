@@ -1,0 +1,221 @@
+{
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "identityplatform.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "IdentityPlatformOAuthIDPConfig"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "clientId": {
+          "description": "The client id of an OAuth client.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "clientSecret": {
+          "description": "The client secret of the OAuth client, to enable OIDC code flow.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "value": {
+              "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "valueFrom": {
+              "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "secretKeyRef": {
+                  "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "name",
+                    "key"
+                  ],
+                  "properties": {
+                    "key": {
+                      "description": "Key that identifies the value to be extracted.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the Secret to extract a value from.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "displayName": {
+          "description": "The config's display name set by developers.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "description": "True if allows the user to sign in with the provider.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "issuer": {
+          "description": "For OIDC Idps, the issuer identifier.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "responseType": {
+          "description": "The multiple response type to request for in the OAuth authorization flow. This can possibly be a combination of set bits (e.g.: {id\\_token, token}).",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "code": {
+              "description": "If true, authorization code is returned from IdP's authorization endpoint.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "idToken": {
+              "description": "If true, ID token is returned from IdP's authorization endpoint.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "token": {
+              "description": "If true, access token is returned from IdP's authorization endpoint.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "identityplatform.cnrm.cloud.google.com",
+      "kind": "IdentityPlatformOAuthIDPConfig",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

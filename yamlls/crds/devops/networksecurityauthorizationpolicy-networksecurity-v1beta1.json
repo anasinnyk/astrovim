@@ -1,0 +1,313 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "networksecurity.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NetworkSecurityAuthorizationPolicy"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "action",
+        "location",
+        "projectRef"
+      ],
+      "properties": {
+        "action": {
+          "description": "Required. The action to take when a rule match is found. Possible values are \"ALLOW\" or \"DENY\". Possible values: ACTION_UNSPECIFIED, ALLOW, DENY",
+          "type": "string"
+        },
+        "description": {
+          "description": "Optional. Free-text description of the resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "description": "Immutable. The location for the resource",
+          "type": "string"
+        },
+        "projectRef": {
+          "description": "Immutable. The Project that this resource belongs to.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The project for the resource\n\nAllowed value: The Google Cloud resource name of a `Project` resource (format: `projects/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rules": {
+          "description": "Optional. List of rules to match. If not set, the action specified in the \u2018action\u2019 field will be applied without any additional rule checks.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "destinations": {
+                "description": "Optional. List of attributes for the traffic destination. If not set, the action specified in the \u2018action\u2019 field will be applied without any rule checks for the destination.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "hosts",
+                    "ports"
+                  ],
+                  "properties": {
+                    "hosts": {
+                      "description": "Required. List of host names to match. Matched against HOST header in http requests. Each host can be an exact match, or a prefix match (example, \u201cmydomain.*\u201d) or a suffix match (example, *.myorg.com\u201d) or a presence(any) match \u201c*\u201d.",
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "httpHeaderMatch": {
+                      "description": "Optional. Match against key:value pair in http header. Provides a flexible match based on HTTP headers, for potentially advanced use cases.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "required": [
+                        "headerName",
+                        "regexMatch"
+                      ],
+                      "properties": {
+                        "headerName": {
+                          "description": "Required. The name of the HTTP header to match. For matching against the HTTP request's authority, use a headerMatch with the header name \":authority\". For matching a request's method, use the headerName \":method\".",
+                          "type": "string"
+                        },
+                        "regexMatch": {
+                          "description": "Required. The value of the header must match the regular expression specified in regexMatch. For regular expression grammar, please see: en.cppreference.com/w/cpp/regex/ecmascript For matching against a port specified in the HTTP request, use a headerMatch with headerName set to Host and a regular expression that satisfies the RFC2616 Host header's port specifier.",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "methods": {
+                      "description": "Optional. A list of HTTP methods to match. Should not be set for gRPC services.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "ports": {
+                      "description": "Required. List of destination ports to match.",
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      }
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "description": "Optional. List of attributes for the traffic source. If not set, the action specified in the \u2018action\u2019 field will be applied without any rule checks for the source.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "ipBlocks": {
+                      "description": "Optional. List of CIDR ranges to match based on source IP address. Single IP (e.g., \"1.2.3.4\") and CIDR (e.g., \"1.2.3.0/24\") are supported.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "principals": {
+                      "description": "Optional. List of peer identities to match for authorization. Each peer can be an exact match, or a prefix match (example, \u201cnamespace/*\u201d) or a suffix match (example, */service-account\u201d) or a presence match \u201c*\u201d.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "createTime": {
+          "description": "Output only. The timestamp when the resource was created.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "updateTime": {
+          "description": "Output only. The timestamp when the resource was updated.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networksecurity.cnrm.cloud.google.com",
+      "kind": "NetworkSecurityAuthorizationPolicy",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

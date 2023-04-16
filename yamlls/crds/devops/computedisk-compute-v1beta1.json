@@ -1,0 +1,664 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "compute.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ComputeDisk"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "location"
+      ],
+      "properties": {
+        "description": {
+          "description": "Immutable. An optional description of this resource. Provide this property when\nyou create the resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diskEncryptionKey": {
+          "description": "Immutable. Encrypts the disk using a customer-supplied encryption key.\n\nAfter you encrypt a disk with a customer-supplied key, you must\nprovide the same key if you use the disk later (e.g. to create a disk\nsnapshot or an image, or to attach the disk to a virtual machine).\n\nCustomer-supplied encryption keys do not protect access to metadata of\nthe disk.\n\nIf you do not provide an encryption key when creating the disk, then\nthe disk will be encrypted using an automatically generated key and\nyou do not need to provide a key to use the disk later.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kmsKeyRef": {
+              "description": "The encryption key used to encrypt the disk. Your project's Compute\nEngine System service account\n('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com')\nmust have 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this\nfeature. See\nhttps://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "kmsKeyServiceAccountRef": {
+              "description": "The service account used for the encryption request for the given KMS key.\nIf absent, the Compute Engine Service Agent service account is used.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "rawKey": {
+              "description": "Immutable. Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "value": {
+                  "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "valueFrom": {
+                  "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "secretKeyRef": {
+                      "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "required": [
+                        "key",
+                        "name"
+                      ],
+                      "properties": {
+                        "key": {
+                          "description": "Key that identifies the value to be extracted.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Name of the Secret to extract a value from.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "sha256": {
+              "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied\nencryption key that protects this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "imageRef": {
+          "description": "The image from which to initialize this disk.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeImage` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "interface": {
+          "description": "DEPRECATED. This field is no longer in use, disk interfaces will be automatically determined on attachment. To resolve this issue, remove this field from your config. Immutable. Specifies the disk interface to use for attaching this disk, which is either SCSI or NVME. The default is SCSI.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "description": "Location represents the geographical location of the ComputeDisk. Specify a region name or a zone name. Reference: GCP definition of regions/zones (https://cloud.google.com/compute/docs/regions-zones/)",
+          "type": "string"
+        },
+        "multiWriter": {
+          "description": "Immutable. Indicates whether or not the disk can be read/write attached to more than one instance.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "physicalBlockSizeBytes": {
+          "description": "Immutable. Physical block size of the persistent disk, in bytes. If not present\nin a request, a default value is used. Currently supported sizes\nare 4096 and 16384, other sizes may be added in the future.\nIf an unsupported value is requested, the error message will list\nthe supported values for the caller's project.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "projectRef": {
+          "description": "The project that this resource belongs to.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `name` field of a `Project` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "provisionedIops": {
+          "description": "Immutable. Indicates how many IOPS must be provisioned for the disk.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "replicaZones": {
+          "description": "Immutable. URLs of the zones where the disk should be replicated to.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resourcePolicies": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Resource policies applied to this disk for automatic snapshot creations.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "external": {
+                "description": "Allowed value: The `selfLink` field of a `ComputeResourcePolicy` resource.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "namespace": {
+                "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "size": {
+          "description": "Size of the persistent disk, specified in GB. You can specify this\nfield when creating a persistent disk using the 'image' or\n'snapshot' parameter, or specify it alone to create an empty\npersistent disk.\n\nIf you specify this field along with 'image' or 'snapshot',\nthe value must not be less than the size of the image\nor the size of the snapshot.\n\nUpsizing the disk is mutable, but downsizing the disk\nrequires re-creating the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "snapshotRef": {
+          "description": "The source snapshot used to create this disk.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeSnapshot` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "sourceImageEncryptionKey": {
+          "description": "Immutable. The customer-supplied encryption key of the source image. Required if\nthe source image is protected by a customer-supplied encryption key.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kmsKeyRef": {
+              "description": "The encryption key used to encrypt the disk. Your project's Compute\nEngine System service account\n('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com')\nmust have 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this\nfeature. See\nhttps://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "kmsKeyServiceAccountRef": {
+              "description": "The service account used for the encryption request for the given KMS key.\nIf absent, the Compute Engine Service Agent service account is used.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "rawKey": {
+              "description": "Immutable. Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied\nencryption key that protects this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "sourceSnapshotEncryptionKey": {
+          "description": "Immutable. The customer-supplied encryption key of the source snapshot. Required\nif the source snapshot is protected by a customer-supplied encryption\nkey.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kmsKeyRef": {
+              "description": "The encryption key used to encrypt the disk. Your project's Compute\nEngine System service account\n('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com')\nmust have 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this\nfeature. See\nhttps://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "kmsKeyServiceAccountRef": {
+              "description": "The service account used for the encryption request for the given KMS key.\nIf absent, the Compute Engine Service Agent service account is used.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "Allowed value: The `email` field of an `IAMServiceAccount` resource.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "rawKey": {
+              "description": "Immutable. Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "description": "The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied\nencryption key that protects this resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "type": {
+          "description": "Immutable. URL of the disk type resource describing which disk type to use to\ncreate the disk. Provide this when creating the disk.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "creationTimestamp": {
+          "description": "Creation timestamp in RFC3339 text format.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labelFingerprint": {
+          "description": "The fingerprint used for optimistic locking of this resource.  Used\ninternally during updates.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lastAttachTimestamp": {
+          "description": "Last attach timestamp in RFC3339 text format.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lastDetachTimestamp": {
+          "description": "Last detach timestamp in RFC3339 text format.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "selfLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sourceImageId": {
+          "description": "The ID value of the image used to create this disk. This value\nidentifies the exact image that was used to create this persistent\ndisk. For example, if you created the persistent disk from an image\nthat was later deleted and recreated under the same name, the source\nimage ID would identify the exact version of the image that was used.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sourceSnapshotId": {
+          "description": "The unique ID of the snapshot used to create this disk. This value\nidentifies the exact snapshot that was used to create this persistent\ndisk. For example, if you created the persistent disk from a snapshot\nthat was later deleted and recreated under the same name, the source\nsnapshot ID would identify the exact version of the snapshot that was\nused.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "users": {
+          "description": "Links to the users of the disk (attached instances) in form:\nproject/zones/zone/instances/instance.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "compute.cnrm.cloud.google.com",
+      "kind": "ComputeDisk",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,315 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "compute.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ComputeRouterPeer"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "peerAsn",
+        "peerIpAddress",
+        "region",
+        "routerInterfaceRef",
+        "routerRef"
+      ],
+      "properties": {
+        "advertiseMode": {
+          "description": "User-specified flag to indicate which mode to use for advertisement.\nValid values of this enum field are: 'DEFAULT', 'CUSTOM' Default value: \"DEFAULT\" Possible values: [\"DEFAULT\", \"CUSTOM\"].",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "advertisedGroups": {
+          "description": "User-specified list of prefix groups to advertise in custom\nmode, which can take one of the following options:\n\n* 'ALL_SUBNETS': Advertises all available subnets, including peer VPC subnets.\n* 'ALL_VPC_SUBNETS': Advertises the router's own VPC subnets.\n* 'ALL_PEER_VPC_SUBNETS': Advertises peer subnets of the router's VPC network.\n\n\nNote that this field can only be populated if advertiseMode is 'CUSTOM'\nand overrides the list defined for the router (in the \"bgp\" message).\nThese groups are advertised in addition to any specified prefixes.\nLeave this field blank to advertise no custom groups.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "advertisedIpRanges": {
+          "description": "User-specified list of individual IP ranges to advertise in\ncustom mode. This field can only be populated if advertiseMode\nis 'CUSTOM' and is advertised to all peers of the router. These IP\nranges will be advertised in addition to any specified groups.\nLeave this field blank to advertise no custom IP ranges.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "range"
+            ],
+            "properties": {
+              "description": {
+                "description": "User-specified description for the IP range.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "range": {
+                "description": "The IP range to advertise. The value must be a\nCIDR-formatted string.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "advertisedRoutePriority": {
+          "description": "The priority of routes advertised to this BGP peer.\nWhere there is more than one matching route of maximum\nlength, the routes with the lowest priority value win.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "bfd": {
+          "description": "BFD configuration for the BGP peering.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "sessionInitializationMode"
+          ],
+          "properties": {
+            "minReceiveInterval": {
+              "description": "The minimum interval, in milliseconds, between BFD control packets\nreceived from the peer router. The actual value is negotiated\nbetween the two routers and is equal to the greater of this value\nand the transmit interval of the other router. If set, this value\nmust be between 1000 and 30000.",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "minTransmitInterval": {
+              "description": "The minimum interval, in milliseconds, between BFD control packets\ntransmitted to the peer router. The actual value is negotiated\nbetween the two routers and is equal to the greater of this value\nand the corresponding receive interval of the other router. If set,\nthis value must be between 1000 and 30000.",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "multiplier": {
+              "description": "The number of consecutive BFD packets that must be missed before\nBFD declares that a peer is unavailable. If set, the value must\nbe a value between 5 and 16.",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "sessionInitializationMode": {
+              "description": "The BFD session initialization mode for this BGP peer.\nIf set to 'ACTIVE', the Cloud Router will initiate the BFD session\nfor this BGP peer. If set to 'PASSIVE', the Cloud Router will wait\nfor the peer router to initiate the BFD session for this BGP peer.\nIf set to 'DISABLED', BFD is disabled for this BGP peer. Possible values: [\"ACTIVE\", \"DISABLED\", \"PASSIVE\"].",
+              "type": "string"
+            }
+          }
+        },
+        "enable": {
+          "description": "The status of the BGP peer connection. If set to false, any active session\nwith the peer is terminated and all associated routing information is removed.\nIf set to true, the peer connection can be established with routing information.\nThe default is true.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ipAddress": {
+          "description": "IP address of the interface inside Google Cloud Platform.\nOnly IPv4 is supported.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "peerAsn": {
+          "description": "Peer BGP Autonomous System Number (ASN).\nEach BGP interface may use a different value.",
+          "type": "integer"
+        },
+        "peerIpAddress": {
+          "description": "IP address of the BGP interface outside Google Cloud Platform.\nOnly IPv4 is supported.",
+          "type": "string"
+        },
+        "region": {
+          "description": "Immutable. Region where the router and BgpPeer reside.\nIf it is not provided, the provider region is used.",
+          "type": "string"
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "routerInterfaceRef": {
+          "description": "The interface the BGP peer is associated with.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `name` field of a `ComputeRouterInterface` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "routerRef": {
+          "description": "The Cloud Router in which this BGP peer will be configured.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `name` field of a `ComputeRouter` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "managementType": {
+          "description": "The resource that configures and manages this BGP peer.\n\n* 'MANAGED_BY_USER' is the default value and can be managed by\nyou or other users\n* 'MANAGED_BY_ATTACHMENT' is a BGP peer that is configured and\nmanaged by Cloud Interconnect, specifically by an\nInterconnectAttachment of type PARTNER. Google automatically\ncreates, updates, and deletes this type of BGP peer when the\nPARTNER InterconnectAttachment is created, updated,\nor deleted.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "compute.cnrm.cloud.google.com",
+      "kind": "ComputeRouterPeer",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

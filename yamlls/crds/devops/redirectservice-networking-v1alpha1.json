@@ -1,0 +1,79 @@
+{
+  "description": "GoogleRedirectService describes the specification used by redirect services on GKE.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "networking.gke.io/v1alpha1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "RedirectService"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "description": "Spec is the desired configuration for Google redirect service.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "redirect": {
+          "description": "redirect specifies a redirection operation.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "provider": {
+              "description": "Provider of the original service.",
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "enum": [
+                "kube-dns",
+                "cloud-dns"
+              ]
+            },
+            "type": {
+              "description": "Type of service that needs redirection.",
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "enum": [
+                "nodelocaldns"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networking.gke.io",
+      "kind": "RedirectService",
+      "version": "v1alpha1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

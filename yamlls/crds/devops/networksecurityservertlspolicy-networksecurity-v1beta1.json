@@ -1,0 +1,284 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "networksecurity.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NetworkSecurityServerTLSPolicy"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "location"
+      ],
+      "properties": {
+        "allowOpen": {
+          "description": "Optional. Determines if server allows plaintext connections. If set to true, server allows plain text connections. By default, it is set to false. This setting is not exclusive of other encryption modes. For example, if allow_open and mtls_policy are set, server allows both plain text and mTLS connections. See documentation of other encryption modes to confirm compatibility.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "Optional. Free-text description of the resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "description": "Immutable. The location for the resource",
+          "type": "string"
+        },
+        "mtlsPolicy": {
+          "description": "Optional. Defines a mechanism to provision peer validation certificates for peer to peer authentication (Mutual TLS - mTLS). If not specified, client certificate will not be requested. The connection is treated as TLS and not mTLS. If allow_open and mtls_policy are set, server allows both plain text and mTLS connections.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "clientValidationCa"
+          ],
+          "properties": {
+            "clientValidationCa": {
+              "description": "Required. Defines the mechanism to obtain the Certificate Authority certificate to validate the client certificate.",
+              "type": "array",
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "certificateProviderInstance": {
+                    "description": "The certificate provider instance specification that will be passed to the data plane, which will be used to load necessary credential information.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "pluginInstance"
+                    ],
+                    "properties": {
+                      "pluginInstance": {
+                        "description": "Required. Plugin instance name, used to locate and load CertificateProvider instance configuration. Set to \"google_cloud_private_spiffe\" to use Certificate Authority Service certificate provider instance.",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "grpcEndpoint": {
+                    "description": "gRPC specific configuration to access the gRPC server to obtain the CA certificate.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "targetUri"
+                    ],
+                    "properties": {
+                      "targetUri": {
+                        "description": "Required. The target URI of the gRPC endpoint. Only UDS path is supported, and should start with \u201cunix:\u201d.",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "projectRef": {
+          "description": "Immutable. The Project that this resource belongs to.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "The project for the resource\n\nAllowed value: The Google Cloud resource name of a `Project` resource (format: `projects/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "serverCertificate": {
+          "description": "Optional. Defines a mechanism to provision server identity (public and private keys). Cannot be combined with allow_open as a permissive mode that allows both plain text and TLS is not supported.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "certificateProviderInstance": {
+              "description": "The certificate provider instance specification that will be passed to the data plane, which will be used to load necessary credential information.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "pluginInstance"
+              ],
+              "properties": {
+                "pluginInstance": {
+                  "description": "Required. Plugin instance name, used to locate and load CertificateProvider instance configuration. Set to \"google_cloud_private_spiffe\" to use Certificate Authority Service certificate provider instance.",
+                  "type": "string"
+                }
+              }
+            },
+            "grpcEndpoint": {
+              "description": "gRPC specific configuration to access the gRPC server to obtain the cert and private key.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "targetUri"
+              ],
+              "properties": {
+                "targetUri": {
+                  "description": "Required. The target URI of the gRPC endpoint. Only UDS path is supported, and should start with \u201cunix:\u201d.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "createTime": {
+          "description": "Output only. The timestamp when the resource was created.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "updateTime": {
+          "description": "Output only. The timestamp when the resource was updated.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networksecurity.cnrm.cloud.google.com",
+      "kind": "NetworkSecurityServerTLSPolicy",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

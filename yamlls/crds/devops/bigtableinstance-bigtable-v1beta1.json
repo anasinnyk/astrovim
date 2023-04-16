@@ -1,0 +1,235 @@
+{
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "bigtable.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "BigtableInstance"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "cluster": {
+          "description": "A block of cluster configuration options. This can be specified at least once.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "clusterId",
+              "zone"
+            ],
+            "properties": {
+              "autoscalingConfig": {
+                "description": "A list of Autoscaling configurations. Only one element is used and allowed.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": [
+                  "cpuTarget",
+                  "maxNodes",
+                  "minNodes"
+                ],
+                "properties": {
+                  "cpuTarget": {
+                    "description": "The target CPU utilization for autoscaling. Value must be between 10 and 80.",
+                    "type": "integer"
+                  },
+                  "maxNodes": {
+                    "description": "The maximum number of nodes for autoscaling.",
+                    "type": "integer"
+                  },
+                  "minNodes": {
+                    "description": "The minimum number of nodes for autoscaling.",
+                    "type": "integer"
+                  }
+                }
+              },
+              "clusterId": {
+                "description": "The ID of the Cloud Bigtable cluster.",
+                "type": "string"
+              },
+              "kmsKeyRef": {
+                "description": "Describes the Cloud KMS encryption key that will be used to protect the destination Bigtable\ncluster. The requirements for this key are: 1) The Cloud Bigtable service account associated with the project that contains\nthis cluster must be granted the cloudkms.cryptoKeyEncrypterDecrypter role on the CMEK key.\n2) Only regional keys can be used and the region of the CMEK key must match the region of the cluster.\n3) All clusters within an instance must use the same CMEK key access to this encryption key.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "external": {
+                    "description": "Allowed value: The `selfLink` field of a `KMSCryptoKey` resource.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "numNodes": {
+                "description": "The number of nodes in your Cloud Bigtable cluster. For PRODUCTION instances where the numNodes will be managed by Config Connector, this field is required with a minimum of 1. For a DEVELOPMENT instance or for an existing instance where the numNodes is managed outside of Config Connector, this field must be left unset.",
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "storageType": {
+                "description": "The storage type to use. One of \"SSD\" or \"HDD\". Defaults to \"SSD\".",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "zone": {
+                "description": "The zone to create the Cloud Bigtable cluster in. Each cluster must have a different zone in the same region. Zones that support Bigtable instances are noted on the Cloud Bigtable locations page.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "deletionProtection": {
+          "description": "DEPRECATED. This field no longer serves any function and is intended to be dropped in a later version of the resource.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "displayName": {
+          "description": "The human-readable display name of the Bigtable instance. Defaults to the instance name.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instanceType": {
+          "description": "DEPRECATED. It is recommended to leave this field unspecified since the distinction between \"DEVELOPMENT\" and \"PRODUCTION\" instances is going away, and all instances will become \"PRODUCTION\" instances. This means that new and existing \"DEVELOPMENT\" instances will be converted to \"PRODUCTION\" instances. It is recommended for users to use \"PRODUCTION\" instances in any case, since a 1-node \"PRODUCTION\" instance is functionally identical to a \"DEVELOPMENT\" instance, but without the accompanying restrictions. The instance type to create. One of \"DEVELOPMENT\" or \"PRODUCTION\". Defaults to \"PRODUCTION\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "bigtable.cnrm.cloud.google.com",
+      "kind": "BigtableInstance",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

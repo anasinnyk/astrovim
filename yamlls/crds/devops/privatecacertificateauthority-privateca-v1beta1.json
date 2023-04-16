@@ -1,0 +1,1525 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "privateca.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "PrivateCACertificateAuthority"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "caPoolRef",
+        "config",
+        "keySpec",
+        "lifetime",
+        "location",
+        "projectRef",
+        "type"
+      ],
+      "properties": {
+        "caPoolRef": {
+          "description": "Immutable.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The caPool for the resource\n\nAllowed value: The Google Cloud resource name of a `PrivateCACAPool` resource (format: `projects/{{project}}/locations/{{location}}/caPools/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "config": {
+          "description": "Immutable. Required. Immutable. The config used to create a self-signed X.509 certificate or CSR.",
+          "type": "object",
+          "required": [
+            "subjectConfig",
+            "x509Config"
+          ],
+          "properties": {
+            "subjectConfig": {
+              "description": "Immutable. Required. Specifies some of the values in a certificate that are related to the subject.",
+              "type": "object",
+              "required": [
+                "subject"
+              ],
+              "properties": {
+                "subject": {
+                  "description": "Immutable. Required. Contains distinguished name fields such as the common name, location and organization.",
+                  "type": "object",
+                  "properties": {
+                    "commonName": {
+                      "description": "Immutable. The \"common name\" of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "countryCode": {
+                      "description": "Immutable. The country code of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "locality": {
+                      "description": "Immutable. The locality or city of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "organization": {
+                      "description": "Immutable. The organization of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "organizationalUnit": {
+                      "description": "Immutable. The organizational_unit of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "postalCode": {
+                      "description": "Immutable. The postal code of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "province": {
+                      "description": "Immutable. The province, territory, or regional state of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "streetAddress": {
+                      "description": "Immutable. The street address of the subject.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "subjectAltName": {
+                  "description": "Immutable. Optional. The subject alternative name fields.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "customSans": {
+                      "description": "Immutable. Contains additional subject alternative name values.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "required": [
+                          "objectId",
+                          "value"
+                        ],
+                        "properties": {
+                          "critical": {
+                            "description": "Immutable. Optional. Indicates whether or not this extension is critical (i.e., if the client does not know how to handle this extension, the client should consider this to be an error).",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "objectId": {
+                            "description": "Immutable. Required. The OID for this X.509 extension.",
+                            "type": "object",
+                            "required": [
+                              "objectIdPath"
+                            ],
+                            "properties": {
+                              "objectIdPath": {
+                                "description": "Immutable. Required. The parts of an OID path. The most significant parts of the path come first.",
+                                "type": "array",
+                                "items": {
+                                  "type": [
+                                    "integer",
+                                    "null"
+                                  ],
+                                  "format": "int64"
+                                }
+                              }
+                            }
+                          },
+                          "value": {
+                            "description": "Immutable. Required. The value of this X.509 extension.",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "dnsNames": {
+                      "description": "Immutable. Contains only valid, fully-qualified host names.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "emailAddresses": {
+                      "description": "Immutable. Contains only valid RFC 2822 E-mail addresses.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "ipAddresses": {
+                      "description": "Immutable. Contains only valid 32-bit IPv4 addresses or RFC 4291 IPv6 addresses.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "uris": {
+                      "description": "Immutable. Contains only valid RFC 3986 URIs.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "x509Config": {
+              "description": "Immutable. Required. Describes how some of the technical X.509 fields in a certificate should be populated.",
+              "type": "object",
+              "properties": {
+                "additionalExtensions": {
+                  "description": "Immutable. Optional. Describes custom X.509 extensions.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "objectId",
+                      "value"
+                    ],
+                    "properties": {
+                      "critical": {
+                        "description": "Immutable. Optional. Indicates whether or not this extension is critical (i.e., if the client does not know how to handle this extension, the client should consider this to be an error).",
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "objectId": {
+                        "description": "Immutable. Required. The OID for this X.509 extension.",
+                        "type": "object",
+                        "required": [
+                          "objectIdPath"
+                        ],
+                        "properties": {
+                          "objectIdPath": {
+                            "description": "Immutable. Required. The parts of an OID path. The most significant parts of the path come first.",
+                            "type": "array",
+                            "items": {
+                              "type": [
+                                "integer",
+                                "null"
+                              ],
+                              "format": "int64"
+                            }
+                          }
+                        }
+                      },
+                      "value": {
+                        "description": "Immutable. Required. The value of this X.509 extension.",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "caOptions": {
+                  "description": "Immutable. Optional. Describes options in this X509Parameters that are relevant in a CA certificate.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "isCa": {
+                      "description": "Immutable. Optional. Refers to the \"CA\" X.509 extension, which is a boolean value. When this value is missing, the extension will be omitted from the CA certificate.",
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "maxIssuerPathLength": {
+                      "description": "Immutable. Optional. Refers to the path length restriction X.509 extension. For a CA certificate, this value describes the depth of subordinate CA certificates that are allowed. If this value is less than 0, the request will fail. If this value is missing, the max path length will be omitted from the CA certificate.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "format": "int64"
+                    }
+                  }
+                },
+                "keyUsage": {
+                  "description": "Immutable. Optional. Indicates the intended use for keys that correspond to a certificate.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "baseKeyUsage": {
+                      "description": "Immutable. Describes high-level ways in which a key may be used.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "certSign": {
+                          "description": "Immutable. The key may be used to sign certificates.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "contentCommitment": {
+                          "description": "Immutable. The key may be used for cryptographic commitments. Note that this may also be referred to as \"non-repudiation\".",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "crlSign": {
+                          "description": "Immutable. The key may be used sign certificate revocation lists.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "dataEncipherment": {
+                          "description": "Immutable. The key may be used to encipher data.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "decipherOnly": {
+                          "description": "Immutable. The key may be used to decipher only.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "digitalSignature": {
+                          "description": "Immutable. The key may be used for digital signatures.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "encipherOnly": {
+                          "description": "Immutable. The key may be used to encipher only.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "keyAgreement": {
+                          "description": "Immutable. The key may be used in a key agreement protocol.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "keyEncipherment": {
+                          "description": "Immutable. The key may be used to encipher other keys.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    },
+                    "extendedKeyUsage": {
+                      "description": "Immutable. Detailed scenarios in which a key may be used.",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "clientAuth": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as \"TLS WWW client authentication\", though regularly used for non-WWW TLS.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "codeSigning": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially described as \"Signing of downloadable executable code client authentication\".",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "emailProtection": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially described as \"Email protection\".",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "ocspSigning": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as \"Signing OCSP responses\".",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "serverAuth": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as \"TLS WWW server authentication\", though regularly used for non-WWW TLS.",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "timeStamping": {
+                          "description": "Immutable. Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially described as \"Binding the hash of an object to a time\".",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    },
+                    "unknownExtendedKeyUsages": {
+                      "description": "Immutable. Used to describe extended key usages that are not listed in the KeyUsage.ExtendedKeyUsageOptions message.",
+                      "type": [
+                        "array",
+                        "null"
+                      ],
+                      "items": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "required": [
+                          "objectIdPath"
+                        ],
+                        "properties": {
+                          "objectIdPath": {
+                            "description": "Immutable. Required. The parts of an OID path. The most significant parts of the path come first.",
+                            "type": "array",
+                            "items": {
+                              "type": [
+                                "integer",
+                                "null"
+                              ],
+                              "format": "int64"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "policyIds": {
+                  "description": "Immutable. Optional. Describes the X.509 certificate policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "objectIdPath"
+                    ],
+                    "properties": {
+                      "objectIdPath": {
+                        "description": "Immutable. Required. The parts of an OID path. The most significant parts of the path come first.",
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "integer",
+                            "null"
+                          ],
+                          "format": "int64"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "gcsBucketRef": {
+          "description": "Immutable.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Immutable. The name of a Cloud Storage bucket where this CertificateAuthority will publish content, such as the CA certificate and CRLs. This must be a bucket name, without any prefixes (such as `gs://`) or suffixes (such as `.googleapis.com`). For example, to use a bucket named `my-bucket`, you would simply specify `my-bucket`. If not specified, a managed bucket will be created.\n\nAllowed value: The Google Cloud resource name of a `StorageBucket` resource (format: `{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "keySpec": {
+          "description": "Immutable. Required. Immutable. Used when issuing certificates for this CertificateAuthority. If this CertificateAuthority is a self-signed CertificateAuthority, this key is also used to sign the self-signed CA certificate. Otherwise, it is used to sign a CSR.",
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "description": "Immutable. The algorithm to use for creating a managed Cloud KMS key for a for a simplified experience. All managed keys will be have their ProtectionLevel as `HSM`. Possible values: RSA_PSS_2048_SHA256, RSA_PSS_3072_SHA256, RSA_PSS_4096_SHA256, RSA_PKCS1_2048_SHA256, RSA_PKCS1_3072_SHA256, RSA_PKCS1_4096_SHA256, EC_P256_SHA256, EC_P384_SHA384",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "cloudKmsKeyVersionRef": {
+              "description": "Immutable.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "external": {
+                  "description": "The resource name for an existing Cloud KMS CryptoKeyVersion in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*`. This option enables full flexibility in the key's capabilities and properties.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "description": "[WARNING] KMSCryptoKeyVersion not yet supported in Config Connector, use 'external' field to reference existing resources.\nName of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "namespace": {
+                  "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "lifetime": {
+          "description": "Immutable. Required. The desired lifetime of the CA certificate. Used to create the \"not_before_time\" and \"not_after_time\" fields inside an X.509 certificate.",
+          "type": "string"
+        },
+        "location": {
+          "description": "Immutable. The location for the resource",
+          "type": "string"
+        },
+        "projectRef": {
+          "description": "Immutable. The Project that this resource belongs to.",
+          "type": "object",
+          "properties": {
+            "external": {
+              "description": "The project for the resource\n\nAllowed value: The Google Cloud resource name of a `Project` resource (format: `projects/{{name}}`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "description": "Immutable. Required. Immutable. The Type of this CertificateAuthority. Possible values: SELF_SIGNED, SUBORDINATE",
+          "type": "string"
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "accessUrls": {
+          "description": "Output only. URLs for accessing content published by this CA, such as the CA certificate and CRLs.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "caCertificateAccessUrl": {
+              "description": "The URL where this CertificateAuthority's CA certificate is published. This will only be set for CAs that have been activated.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "crlAccessUrls": {
+              "description": "The URLs where this CertificateAuthority's CRLs are published. This will only be set for CAs that have been activated.",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "caCertificateDescriptions": {
+          "description": "Output only. A structured description of this CertificateAuthority's CA certificate and its issuers. Ordered as self-to-root.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "aiaIssuingCertificateUrls": {
+                "description": "Describes lists of issuer CA certificate URLs that appear in the \"Authority Information Access\" extension in the certificate.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "authorityKeyId": {
+                "description": "Identifies the subject_key_id of the parent certificate, per https://tools.ietf.org/html/rfc5280#section-4.2.1.1",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "keyId": {
+                    "description": "Optional. The value of this KeyId encoded in lowercase hexadecimal. This is most likely the 160 bit SHA-1 hash of the public key.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "certFingerprint": {
+                "description": "The hash of the x.509 certificate.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "sha256Hash": {
+                    "description": "The SHA 256 hash, encoded in hexadecimal, of the DER x509 certificate.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "crlDistributionPoints": {
+                "description": "Describes a list of locations to obtain CRL information, i.e. the DistributionPoint.fullName described by https://tools.ietf.org/html/rfc5280#section-4.2.1.13",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "publicKey": {
+                "description": "The public key that corresponds to an issued certificate.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "format": {
+                    "description": "Required. The format of the public key. Possible values: PEM",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "key": {
+                    "description": "Required. A public key. The padding and encoding must match with the `KeyFormat` value specified for the `format` field.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "subjectDescription": {
+                "description": "Describes some of the values in a certificate that are related to the subject and lifetime.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "hexSerialNumber": {
+                    "description": "The serial number encoded in lowercase hexadecimal.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "lifetime": {
+                    "description": "For convenience, the actual lifetime of an issued certificate.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "notAfterTime": {
+                    "description": "The time after which the certificate is expired. Per RFC 5280, the validity period for a certificate is the period of time from not_before_time through not_after_time, inclusive. Corresponds to 'not_before_time' + 'lifetime' - 1 second.",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  },
+                  "notBeforeTime": {
+                    "description": "The time at which the certificate becomes valid.",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  },
+                  "subject": {
+                    "description": "Contains distinguished name fields such as the common name, location and organization.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "commonName": {
+                        "description": "The \"common name\" of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "countryCode": {
+                        "description": "The country code of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "locality": {
+                        "description": "The locality or city of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "organization": {
+                        "description": "The organization of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "organizationalUnit": {
+                        "description": "The organizational_unit of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "postalCode": {
+                        "description": "The postal code of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "province": {
+                        "description": "The province, territory, or regional state of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "streetAddress": {
+                        "description": "The street address of the subject.",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "subjectAltName": {
+                    "description": "The subject alternative name fields.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "customSans": {
+                        "description": "Contains additional subject alternative name values.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "critical": {
+                              "description": "Optional. Indicates whether or not this extension is critical (i.e., if the client does not know how to handle this extension, the client should consider this to be an error).",
+                              "type": [
+                                "boolean",
+                                "null"
+                              ]
+                            },
+                            "objectId": {
+                              "description": "Required. The OID for this X.509 extension.",
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "objectIdPath": {
+                                  "description": "Required. The parts of an OID path. The most significant parts of the path come first.",
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "integer",
+                                      "null"
+                                    ],
+                                    "format": "int64"
+                                  }
+                                }
+                              }
+                            },
+                            "value": {
+                              "description": "Required. The value of this X.509 extension.",
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "dnsNames": {
+                        "description": "Contains only valid, fully-qualified host names.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "emailAddresses": {
+                        "description": "Contains only valid RFC 2822 E-mail addresses.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "ipAddresses": {
+                        "description": "Contains only valid 32-bit IPv4 addresses or RFC 4291 IPv6 addresses.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "uris": {
+                        "description": "Contains only valid RFC 3986 URIs.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "subjectKeyId": {
+                "description": "Provides a means of identifiying certificates that contain a particular public key, per https://tools.ietf.org/html/rfc5280#section-4.2.1.2.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "keyId": {
+                    "description": "Optional. The value of this KeyId encoded in lowercase hexadecimal. This is most likely the 160 bit SHA-1 hash of the public key.",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "x509Description": {
+                "description": "Describes some of the technical X.509 fields in a certificate.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "additionalExtensions": {
+                    "description": "Optional. Describes custom X.509 extensions.",
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "critical": {
+                          "description": "Optional. Indicates whether or not this extension is critical (i.e., if the client does not know how to handle this extension, the client should consider this to be an error).",
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
+                        "objectId": {
+                          "description": "Required. The OID for this X.509 extension.",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "objectIdPath": {
+                              "description": "Required. The parts of an OID path. The most significant parts of the path come first.",
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int64"
+                              }
+                            }
+                          }
+                        },
+                        "value": {
+                          "description": "Required. The value of this X.509 extension.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "aiaOcspServers": {
+                    "description": "Optional. Describes Online Certificate Status Protocol (OCSP) endpoint addresses that appear in the \"Authority Information Access\" extension in the certificate.",
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "caOptions": {
+                    "description": "Optional. Describes options in this X509Parameters that are relevant in a CA certificate.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "isCa": {
+                        "description": "Optional. Refers to the \"CA\" X.509 extension, which is a boolean value. When this value is missing, the extension will be omitted from the CA certificate.",
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "maxIssuerPathLength": {
+                        "description": "Optional. Refers to the path length restriction X.509 extension. For a CA certificate, this value describes the depth of subordinate CA certificates that are allowed. If this value is less than 0, the request will fail. If this value is missing, the max path length will be omitted from the CA certificate.",
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      }
+                    }
+                  },
+                  "keyUsage": {
+                    "description": "Optional. Indicates the intended use for keys that correspond to a certificate.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "baseKeyUsage": {
+                        "description": "Describes high-level ways in which a key may be used.",
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "certSign": {
+                            "description": "The key may be used to sign certificates.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "contentCommitment": {
+                            "description": "The key may be used for cryptographic commitments. Note that this may also be referred to as \"non-repudiation\".",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "crlSign": {
+                            "description": "The key may be used sign certificate revocation lists.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "dataEncipherment": {
+                            "description": "The key may be used to encipher data.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "decipherOnly": {
+                            "description": "The key may be used to decipher only.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "digitalSignature": {
+                            "description": "The key may be used for digital signatures.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "encipherOnly": {
+                            "description": "The key may be used to encipher only.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "keyAgreement": {
+                            "description": "The key may be used in a key agreement protocol.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "keyEncipherment": {
+                            "description": "The key may be used to encipher other keys.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "extendedKeyUsage": {
+                        "description": "Detailed scenarios in which a key may be used.",
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "clientAuth": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as \"TLS WWW client authentication\", though regularly used for non-WWW TLS.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "codeSigning": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially described as \"Signing of downloadable executable code client authentication\".",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "emailProtection": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially described as \"Email protection\".",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "ocspSigning": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as \"Signing OCSP responses\".",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "serverAuth": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as \"TLS WWW server authentication\", though regularly used for non-WWW TLS.",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          "timeStamping": {
+                            "description": "Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially described as \"Binding the hash of an object to a time\".",
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "unknownExtendedKeyUsages": {
+                        "description": "Used to describe extended key usages that are not listed in the KeyUsage.ExtendedKeyUsageOptions message.",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "objectIdPath": {
+                              "description": "Required. The parts of an OID path. The most significant parts of the path come first.",
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int64"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "policyIds": {
+                    "description": "Optional. Describes the X.509 certificate policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.",
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "objectIdPath": {
+                          "description": "Required. The parts of an OID path. The most significant parts of the path come first.",
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ],
+                            "format": "int64"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "config": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "publicKey": {
+              "description": "Optional. The public key that corresponds to this config. This is, for example, used when issuing Certificates, but not when creating a self-signed CertificateAuthority or CertificateAuthority CSR.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "format": {
+                  "description": "Required. The format of the public key. Possible values: PEM",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "key": {
+                  "description": "Required. A public key. The padding and encoding must match with the `KeyFormat` value specified for the `format` field.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "x509Config": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "aiaOcspServers": {
+                  "description": "Optional. Describes Online Certificate Status Protocol (OCSP) endpoint addresses that appear in the \"Authority Information Access\" extension in the certificate.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "createTime": {
+          "description": "Output only. The time at which this CertificateAuthority was created.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleteTime": {
+          "description": "Output only. The time at which this CertificateAuthority was soft deleted, if it is in the DELETED state.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "expireTime": {
+          "description": "Output only. The time at which this CertificateAuthority will be permanently purged, if it is in the DELETED state.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "pemCaCertificates": {
+          "description": "Output only. This CertificateAuthority's certificate chain, including the current CertificateAuthority's certificate. Ordered such that the root issuer is the final element (consistent with RFC 5246). For a self-signed CA, this will only list the current CertificateAuthority's certificate.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "state": {
+          "description": "Output only. The State for this CertificateAuthority. Possible values: ENABLED, DISABLED, STAGED, AWAITING_USER_ACTIVATION, DELETED",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subordinateConfig": {
+          "description": "Optional. If this is a subordinate CertificateAuthority, this field will be set with the subordinate configuration, which describes its issuers. This may be updated, but this CertificateAuthority must continue to validate.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "certificateAuthority": {
+              "description": "Required. This can refer to a CertificateAuthority in the same project that was used to create a subordinate CertificateAuthority. This field is used for information and usability purposes only. The resource name is in the format `projects/*/locations/*/caPools/*/certificateAuthorities/*`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "pemIssuerChain": {
+              "description": "Required. Contains the PEM certificate chain for the issuers of this CertificateAuthority, but not pem certificate for this CA itself.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "pemCertificates": {
+                  "description": "Required. Expected to be in leaf-to-root order according to RFC 5246.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tier": {
+          "description": "Output only. The CaPool.Tier of the CaPool that includes this CertificateAuthority. Possible values: ENTERPRISE, DEVOPS",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updateTime": {
+          "description": "Output only. The time at which this CertificateAuthority was last updated.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "privateca.cnrm.cloud.google.com",
+      "kind": "PrivateCACertificateAuthority",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

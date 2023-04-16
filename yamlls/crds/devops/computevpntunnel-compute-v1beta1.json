@@ -1,0 +1,423 @@
+{
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "compute.cnrm.cloud.google.com/v1beta1"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ComputeVPNTunnel"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "spec": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "region",
+        "sharedSecret"
+      ],
+      "properties": {
+        "description": {
+          "description": "Immutable. An optional description of this resource.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ikeVersion": {
+          "description": "Immutable. IKE protocol version to use when establishing the VPN tunnel with\npeer VPN gateway.\nAcceptable IKE versions are 1 or 2. Default version is 2.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "localTrafficSelector": {
+          "description": "Immutable. Local traffic selector to use when establishing the VPN tunnel with\npeer VPN gateway. The value should be a CIDR formatted string,\nfor example '192.168.0.0/16'. The ranges should be disjoint.\nOnly IPv4 is supported.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "peerExternalGatewayInterface": {
+          "description": "Immutable. The interface ID of the external VPN gateway to which this VPN tunnel is connected.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "peerExternalGatewayRef": {
+          "description": "The peer side external VPN gateway to which this VPN tunnel\nis connected.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeExternalVPNGateway` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "peerGCPGatewayRef": {
+          "description": "The peer side HA GCP VPN gateway to which this VPN tunnel is\nconnected. If provided, the VPN tunnel will automatically use the\nsame VPN gateway interface ID in the peer GCP VPN gateway.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeVPNGateway` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "peerIp": {
+          "description": "Immutable. IP address of the peer VPN gateway. Only IPv4 is supported.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "region": {
+          "description": "Immutable. The region where the tunnel is located. If unset, is set to the region of 'target_vpn_gateway'.",
+          "type": "string"
+        },
+        "remoteTrafficSelector": {
+          "description": "Immutable. Remote traffic selector to use when establishing the VPN tunnel with\npeer VPN gateway. The value should be a CIDR formatted string,\nfor example '192.168.0.0/16'. The ranges should be disjoint.\nOnly IPv4 is supported.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "resourceID": {
+          "description": "Immutable. Optional. The name of the resource. Used for creation and acquisition. When unset, the value of `metadata.name` is used as the default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "routerRef": {
+          "description": "The router to be used for dynamic routing.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeRouter` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "sharedSecret": {
+          "description": "Immutable. Shared secret used to set the secure session between the Cloud VPN\ngateway and the peer VPN gateway.",
+          "type": "object",
+          "properties": {
+            "value": {
+              "description": "Value of the field. Cannot be used if 'valueFrom' is specified.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "valueFrom": {
+              "description": "Source for the field's value. Cannot be used if 'value' is specified.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "secretKeyRef": {
+                  "description": "Reference to a value with the given key in the given Secret in the resource's namespace.",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "name",
+                    "key"
+                  ],
+                  "properties": {
+                    "key": {
+                      "description": "Key that identifies the value to be extracted.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the Secret to extract a value from.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "targetVPNGatewayRef": {
+          "description": "The ComputeTargetVPNGateway with which this VPN tunnel is\nassociated.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeTargetVPNGateway` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "vpnGatewayInterface": {
+          "description": "Immutable. The interface ID of the VPN gateway with which this VPN tunnel is associated.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "vpnGatewayRef": {
+          "description": "The ComputeVPNGateway with which this VPN tunnel is associated.\nThis must be used if a High Availability VPN gateway resource is\ncreated.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "external": {
+              "description": "Allowed value: The `selfLink` field of a `ComputeVPNGateway` resource.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "conditions": {
+          "description": "Conditions represent the latest available observation of the resource's current state.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "lastTransitionTime": {
+                "description": "Last time the condition transitioned from one status to another.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Human-readable message indicating details about last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the condition. Can be True, False, Unknown.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "description": "Type is the type of the condition.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "creationTimestamp": {
+          "description": "Creation timestamp in RFC3339 text format.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "detailedStatus": {
+          "description": "Detailed status message for the VPN tunnel.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labelFingerprint": {
+          "description": "The fingerprint used for optimistic locking of this resource.  Used\ninternally during updates.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the generation of the resource that was most recently observed by the Config Connector controller. If this is equal to metadata.generation, then that means that the current reported status reflects the most recent desired state of the resource.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "selfLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sharedSecretHash": {
+          "description": "Hash of the shared secret.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tunnelId": {
+          "description": "The unique identifier for the resource. This identifier is defined by the server.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "compute.cnrm.cloud.google.com",
+      "kind": "ComputeVPNTunnel",
+      "version": "v1beta1"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}

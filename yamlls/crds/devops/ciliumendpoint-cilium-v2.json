@@ -1,0 +1,874 @@
+{
+  "description": "CiliumEndpoint is the status of a Cilium policy rule.",
+  "type": "object",
+  "required": [
+    "metadata"
+  ],
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "cilium.io/v2"
+      ]
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "CiliumEndpoint"
+      ]
+    },
+    "metadata": {
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+      "$ref": "_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+    },
+    "status": {
+      "description": "EndpointStatus is the status of a Cilium endpoint.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "controllers": {
+          "description": "Controllers is the list of failing controllers for this endpoint.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "ControllerStatus is the status of a failing controller.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "configuration": {
+                "description": "Configuration is the controller configuration",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "error-retry": {
+                    "description": "Retry on error",
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "error-retry-base": {
+                    "description": "Base error retry back-off time Format: duration",
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "format": "int64"
+                  },
+                  "interval": {
+                    "description": "Regular synchronization interval Format: duration",
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "format": "int64"
+                  }
+                }
+              },
+              "name": {
+                "description": "Name is the name of the controller",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "description": "Status is the status of the controller",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "consecutive-failure-count": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "format": "int64"
+                  },
+                  "failure-count": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "format": "int64"
+                  },
+                  "last-failure-msg": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "last-failure-timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "last-success-timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "success-count": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "format": "int64"
+                  }
+                }
+              },
+              "uuid": {
+                "description": "UUID is the UUID of the controller",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "encryption": {
+          "description": "Encryption is the encryption configuration of the node",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "key": {
+              "description": "Key is the index to the key to use for encryption or 0 if encryption is disabled.",
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "external-identifiers": {
+          "description": "ExternalIdentifiers is a set of identifiers to identify the endpoint apart from the pod name. This includes container runtime IDs.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "container-id": {
+              "description": "ID assigned by container runtime",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "container-name": {
+              "description": "Name assigned to container",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "docker-endpoint-id": {
+              "description": "Docker endpoint ID",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "docker-network-id": {
+              "description": "Docker network ID",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "k8s-namespace": {
+              "description": "K8s namespace for this endpoint",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "k8s-pod-name": {
+              "description": "K8s pod name for this endpoint",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "pod-name": {
+              "description": "K8s pod for this endpoint(Deprecated, use K8sPodName and K8sNamespace instead)",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "health": {
+          "description": "Health is the overall endpoint & subcomponent health.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "bpf": {
+              "description": "bpf",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "connected": {
+              "description": "Is this endpoint reachable",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "overallHealth": {
+              "description": "overall health",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "policy": {
+              "description": "policy",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "id": {
+          "description": "ID is the cilium-agent-local ID of the endpoint.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "identity": {
+          "description": "Identity is the security identity associated with the endpoint",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "description": "ID is the numeric identity of the endpoint",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "labels": {
+              "description": "Labels is the list of labels associated with the identity",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "log": {
+          "description": "Log is the list of the last few warning and error log entries",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "EndpointStatusChange Indication of a change of status \n swagger:model EndpointStatusChange",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "code": {
+                "description": "Code indicate type of status change Enum: [ok failed]",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "description": "Status message",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state": {
+                "description": "state",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "timestamp": {
+                "description": "Timestamp when status change occurred",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "named-ports": {
+          "description": "NamedPorts List of named Layer 4 port and protocol pairs which will be used in Network Policy specs. \n swagger:model NamedPorts",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Port Layer 4 port / protocol pair \n swagger:model Port",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "name": {
+                "description": "Optional layer 4 port name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "port": {
+                "description": "Layer 4 port number",
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "protocol": {
+                "description": "Layer 4 protocol Enum: [TCP UDP SCTP ICMP ICMPV6 ANY]",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "networking": {
+          "description": "Networking is the networking properties of the endpoint.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "addressing"
+          ],
+          "properties": {
+            "addressing": {
+              "description": "IP4/6 addresses assigned to this Endpoint",
+              "type": "array",
+              "items": {
+                "description": "AddressPair is is a par of IPv4 and/or IPv6 address.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ipv4": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "ipv6": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "node": {
+              "description": "NodeIP is the IP of the node the endpoint is running on. The IP must be reachable between nodes.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "policy": {
+          "description": "EndpointPolicy represents the endpoint's policy by listing all allowed ingress and egress identities in combination with L4 port and protocol.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "egress": {
+              "description": "EndpointPolicyDirection is the list of allowed identities per direction.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "enforcing"
+              ],
+              "properties": {
+                "adding": {
+                  "description": "Deprecated",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "allowed": {
+                  "description": "AllowedIdentityList is a list of IdentityTuples that species peers that are allowed.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "denied": {
+                  "description": "DenyIdentityList is a list of IdentityTuples that species peers that are denied.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "enforcing": {
+                  "type": "boolean"
+                },
+                "removing": {
+                  "description": "Deprecated",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "ingress": {
+              "description": "EndpointPolicyDirection is the list of allowed identities per direction.",
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "enforcing"
+              ],
+              "properties": {
+                "adding": {
+                  "description": "Deprecated",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "allowed": {
+                  "description": "AllowedIdentityList is a list of IdentityTuples that species peers that are allowed.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "denied": {
+                  "description": "DenyIdentityList is a list of IdentityTuples that species peers that are denied.",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "enforcing": {
+                  "type": "boolean"
+                },
+                "removing": {
+                  "description": "Deprecated",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "IdentityTuple specifies a peer by identity, destination port and protocol.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "dest-port": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "identity": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "format": "int64"
+                      },
+                      "identity-labels": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "protocol": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "state": {
+          "description": "State is the state of the endpoint.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "creating",
+            "waiting-for-identity",
+            "not-ready",
+            "waiting-to-regenerate",
+            "regenerating",
+            "restoring",
+            "ready",
+            "disconnecting",
+            "disconnected",
+            "invalid"
+          ]
+        },
+        "visibility-policy-status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "cilium.io",
+      "kind": "CiliumEndpoint",
+      "version": "v2"
+    }
+  ],
+  "$schema": "http://json-schema.org/schema#"
+}
